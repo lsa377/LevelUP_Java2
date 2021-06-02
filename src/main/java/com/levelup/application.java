@@ -8,5 +8,9 @@ public class application {
         System.out.println("Pull this");
         count++;
         System.out.println(count);
+        for(int i =0 ; i < 10 ;i++){
+            count+=i;
+            System.out.println(count);
+        }
     }
 }
