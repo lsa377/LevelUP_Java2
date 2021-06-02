@@ -12,5 +12,6 @@ public class application {
             count+=i;
             System.out.println(count);
         }
+        count--;
     }
 }
