@@ -31,48 +31,56 @@ public class JdbsClientRepository implements ClientRepository {
     }
 
     public void printAllClients() {
-        try(Connection connection = cm.openConnection()){
+        try (Connection connection = cm.openConnection()) {
             Statement stmt = connection.createStatement();
+
             ResultSet rs = stmt.executeQuery("select * from clients");
-            while (rs.next()){
+            while (rs.next()) {
                 long clientId = rs.getLong(1);
                 String firstName = rs.getString("first_name");
                 String lastName = rs.getString("last_name");
                 String middleName = rs.getString("middle_name");
-                System.out.println(clientId+" "+firstName+" "+middleName+" "+lastName);
+
+                System.out.println(clientId + " " + firstName + " " + lastName + " " + middleName);
             }
-        } catch (SQLException exc){
+
+        } catch (SQLException exc) {
             throw new RuntimeException(exc);
         }
     }
 
     @Override
     @SneakyThrows
-    public Collection<Client> findCleintsWhenBirthdayBetween(LocalDate begin, LocalDate end){
+    public Collection<Client> findClientsWhenBirthdayBetween(LocalDate begin, LocalDate end) {
         String sql = "select * from clients where birthday between ? and ?";
-        try(Connection connection = cm.openConnection()){
+        try (Connection connection = cm.openConnection()) {
+
             Date beginDate = DateUtils.ofLocalDate(begin);
             Date endDate = DateUtils.ofLocalDate(end);
 
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setDate(1,beginDate);
-            statement.setDate(2,endDate);
+            statement.setDate(1, beginDate);
+            statement.setDate(2, endDate);
+
             ResultSet rs = statement.executeQuery();
-            return retrieveClientFromResultSet(rs);
+            return retrieveClientsFromResultSet(rs);
         }
     }
 
-    private Collection<Client> retrieveClientFromResultSet(ResultSet rs) throws SQLException {
+    private Collection<Client> retrieveClientsFromResultSet(ResultSet rs) throws SQLException {
         Collection<Client> clients = new ArrayList<>();
-        while (rs.next()){
+        while (rs.next()) {
             Client client = new Client(
                     rs.getLong("id"),
                     rs.getString("first_name"),
                     rs.getString("last_name"),
                     rs.getString("middle_name"),
-                    DateUtils.ofDate(rs.getDate("birthdate"))
+                    DateUtils.ofDate(rs.getDate("birthday"))
             );
+
+            clients.add(client);
         }
+
         return clients;
     }
 

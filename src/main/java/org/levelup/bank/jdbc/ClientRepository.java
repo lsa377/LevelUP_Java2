@@ -9,5 +9,5 @@ public interface ClientRepository {
 
     void createNewClient(String firstName, String lastName, String middleName, LocalDate birthday);
     void printAllClients();
-    Collection<Client> findCleintsWhenBirthdayBetween(LocalDate begin, LocalDate end);
+    Collection<Client> findClientsWhenBirthdayBetween(LocalDate begin, LocalDate end);
 }
