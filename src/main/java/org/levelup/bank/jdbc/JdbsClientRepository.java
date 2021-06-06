@@ -33,7 +33,6 @@ public class JdbsClientRepository implements ClientRepository {
     public void printAllClients() {
         try (Connection connection = cm.openConnection()) {
             Statement stmt = connection.createStatement();
-
             ResultSet rs = stmt.executeQuery("select * from clients");
             while (rs.next()) {
                 long clientId = rs.getLong(1);
