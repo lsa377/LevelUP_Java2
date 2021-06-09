@@ -14,7 +14,15 @@ public class ProfilingInvocationHandler implements InvocationHandler {
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         long start = System.nanoTime();
         Object result = method.invoke(original,args);
-        System.out.println("Exec time (nanoseconds): "+(System.nanoTime() - start));
+        long finish = System.nanoTime();
+        Class<?> originalClass = Class.forName(original.getClass().getName());
+        for(Method method1 : (originalClass.getDeclaredMethods())) {
+            Profiling annotation = method1.getAnnotation(Profiling.class);
+            if(annotation != null && method.getName().equals(method1.getName())){
+                System.out.println("Method '" + method.getName() + "' of the class '"+original.getClass().getName()+"' executed in "+(finish - start)+" nanoseconds");
+            }
+        }
+
         return result;
     }
 }
