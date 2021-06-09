@@ -10,12 +10,10 @@ public class RandomIntAnnotationProcessor {
 
     @SneakyThrows
     public Object createObjectByClassName(String className){
-
-            Class<?> objectClass = Class.forName(className);
-
-            Object instance = objectClass.getDeclaredConstructor().newInstance();
-            Field[] fields = objectClass.getDeclaredFields();
-            for(Field field : fields){
+        Class<?> objectClass = Class.forName(className);
+        Object instance = objectClass.getDeclaredConstructor().newInstance();
+        Field[] fields = objectClass.getDeclaredFields();
+        for(Field field : fields){
                 RandomInt annotation = field.getAnnotation(RandomInt.class);
                 if(annotation != null){
                     int min = annotation.min();
@@ -28,6 +26,6 @@ public class RandomIntAnnotationProcessor {
 
                 }
             }
-            return instance;
+        return instance;
     }
 }
