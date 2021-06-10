@@ -22,7 +22,6 @@ public class ProfilingInvocationHandler implements InvocationHandler {
                 System.out.println("Method '" + method.getName() + "' of the class '"+original.getClass().getName()+"' executed in "+(finish - start)+" nanoseconds");
             }
         }
-
         return result;
     }
 }

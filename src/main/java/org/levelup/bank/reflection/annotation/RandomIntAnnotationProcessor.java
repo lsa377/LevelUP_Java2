@@ -18,12 +18,10 @@ public class RandomIntAnnotationProcessor {
                 if(annotation != null){
                     int min = annotation.min();
                     int max = annotation.max();
-
                     Random r = new Random();
                     int randomInt = r.nextInt(max - min) + min;
                     field.setAccessible(true);
                     field.set(instance,randomInt);
-
                 }
             }
         return instance;

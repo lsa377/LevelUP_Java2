@@ -12,5 +12,4 @@ import java.lang.annotation.Target;
 public @interface RandomInt {
     int min();
     int max() default Integer.MAX_VALUE;
-
 }

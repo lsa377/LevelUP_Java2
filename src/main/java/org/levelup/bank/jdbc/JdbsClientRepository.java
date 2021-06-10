@@ -39,10 +39,8 @@ public class JdbsClientRepository implements ClientRepository {
                 String firstName = rs.getString("first_name");
                 String lastName = rs.getString("last_name");
                 String middleName = rs.getString("middle_name");
-
                 System.out.println(clientId + " " + firstName + " " + lastName + " " + middleName);
             }
-
         } catch (SQLException exc) {
             throw new RuntimeException(exc);
         }
@@ -76,12 +74,8 @@ public class JdbsClientRepository implements ClientRepository {
                     rs.getString("middle_name"),
                     DateUtils.ofDate(rs.getDate("birthday"))
             );
-
             clients.add(client);
         }
-
         return clients;
     }
-
-
 }

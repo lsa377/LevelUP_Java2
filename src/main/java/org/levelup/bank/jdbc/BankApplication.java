@@ -1,10 +1,9 @@
 package org.levelup.bank.jdbc;
 
 import org.levelup.bank.domain.Account;
-import org.levelup.bank.domain.Client;
 import org.levelup.bank.domain.ClientDebet;
+import org.levelup.bank.jdbc.pool.PostgreSQLConnectionsManager;
 
-import java.time.LocalDate;
 import java.util.Collection;
 
 public class BankApplication {
