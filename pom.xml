@@ -12,7 +12,9 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <posgresql.version>42.2.20</posgresql.version>
+        <hibernate.version>5.5.2.Final</hibernate.version>
         <lombok.version>1.18.20</lombok.version>
+        <junit.version>5.7.1</junit.version>
     </properties>
     <dependencies>
         <dependency>
@@ -29,7 +31,7 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.7.1</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -38,7 +40,11 @@
             <version>3.5.15</version>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
 
 
     </dependencies>
