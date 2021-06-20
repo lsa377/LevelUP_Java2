@@ -2,13 +2,22 @@ package org.levelup.bank.jdbc;
 
 import org.levelup.bank.domain.Account;
 import org.levelup.bank.domain.ClientDebet;
+import org.levelup.bank.jdbc.pool.ConnectionManagerInvocationHandler;
 import org.levelup.bank.jdbc.pool.PostgreSQLConnectionsManager;
 
+import java.lang.reflect.Proxy;
 import java.util.Collection;
 
 public class BankApplication {
     public static void main(String[] args) {
-        ConnectionManager cm = new PostgreSQLConnectionsManager();
+
+        ConnectionManager cmoriginal = new PostgreSQLConnectionsManager();
+
+        ConnectionManager cm = (ConnectionManager) Proxy.newProxyInstance(
+                cmoriginal.getClass().getClassLoader(),
+                cmoriginal.getClass().getInterfaces(),
+                new ConnectionManagerInvocationHandler(cmoriginal)
+        );
         ClientRepository clientRepository = new JdbsClientRepository(cm);
         AccountRepository accountRepository = new JdbsAccountRepository(cm);
         // clientRepository.createNewClient("Im", "Kim Chen", null, null);
