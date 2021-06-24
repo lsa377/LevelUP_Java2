@@ -17,5 +17,9 @@
 
         <mapping class="org.levelup.bank.domain.AccountEntity" />
         <mapping class="org.levelup.bank.domain.ClientEntity" />
+        <mapping class="org.levelup.bank.domain.ClientDataEntity" />
+        <mapping class="org.levelup.bank.domain.OperationEntity" />
+        <mapping class="org.levelup.bank.domain.FilialEntity" />
+        <mapping class="org.levelup.bank.domain.ManagerEntity" />
     </session-factory>
 </hibernate-configuration>

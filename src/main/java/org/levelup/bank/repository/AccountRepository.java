@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.levelup.bank.domain.AccountEntity;
+import org.levelup.bank.domain.ClientEntity;
 
 import java.util.Collection;
 import java.util.UUID;
@@ -18,7 +19,7 @@ public class AccountRepository {
            Transaction tx = session.beginTransaction();
 
            AccountEntity account = new AccountEntity();
-           account.setClientId(clientid);
+           account.setClient(session.load(ClientEntity.class,clientid));
            account.setAmount(0.0d);
            account.setAccountNumber(UUID.randomUUID().toString().substring(0,16));
 

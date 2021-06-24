@@ -25,7 +25,7 @@ public class ClientRepository{
            client.setClientId(clientid);
            client.setFirstName(firstName);
            client.setLastName(lastName);
-           client.setBirthday(DateUtils.ofLocalDate(birthday));
+           //client.setBirthday(DateUtils.ofLocalDate(birthday));
            session.persist(client);
            tx.commit();
            return client;
@@ -51,7 +51,7 @@ public class ClientRepository{
                 client.setMiddleName(middleName);
             }
             if(birthday != null){
-                client.setBirthday(DateUtils.ofLocalDate(birthday));
+               // client.setBirthday(DateUtils.ofLocalDate(birthday));
             }
             session.merge(client);
             tx.commit();

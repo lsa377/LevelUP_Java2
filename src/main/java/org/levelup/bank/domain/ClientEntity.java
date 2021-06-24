@@ -1,22 +1,23 @@
 package org.levelup.bank.domain;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.util.Date;
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.Collection;
 
+@Setter
+@Getter
 @Data
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "clients")
 public class ClientEntity {
 
     @Id
     @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long clientId;
 
     @Column(name = "first_name")
@@ -29,5 +30,20 @@ public class ClientEntity {
     private String middleName;
 
     @Column(name = "birthday")
-    private Date birthday;
+    private LocalDate birthday;
+
+    @OneToOne(mappedBy = "client")
+    // @JoinColumn(name = "client_id")
+    private ClientDataEntity clientData;
+
+    @OneToMany(mappedBy = "client")
+    private Collection<AccountEntity> accounts;
+
+    public ClientEntity(long clientId, String firstName, String lastName, String middleName, LocalDate birthday) {
+        this.clientId = clientId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.middleName = middleName;
+        this.birthday = birthday;
+    }
 }

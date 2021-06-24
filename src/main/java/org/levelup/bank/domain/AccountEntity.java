@@ -3,10 +3,7 @@ package org.levelup.bank.domain;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -18,6 +15,10 @@ public class AccountEntity {
     @Column(name = "account_number")
     private String accountNumber;
     private double amount;
-    @Column(name = "client_id")
-    private long clientId;
+    // @Column(name = "client_id")
+    // private long clientId;
+
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private ClientEntity client;
 }
