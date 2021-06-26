@@ -32,11 +32,11 @@ public class ClientEntity {
     @Column(name = "birthday")
     private LocalDate birthday;
 
-    @OneToOne(mappedBy = "client")
+    @OneToOne(mappedBy = "client",fetch=FetchType.EAGER)
     // @JoinColumn(name = "client_id")
     private ClientDataEntity clientData;
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client",fetch=FetchType.EAGER)
     private Collection<AccountEntity> accounts;
 
     public ClientEntity(long clientId, String firstName, String lastName, String middleName, LocalDate birthday) {

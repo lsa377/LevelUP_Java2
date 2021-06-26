@@ -32,7 +32,7 @@ public class AccountRepository {
 
     public Collection<AccountEntity> loadClientAccounts(long clientId){
         try(Session session = factory.openSession()){
-            return session.createQuery("from AccountEntity where clientId = : clientId",AccountEntity.class)
+            return session.createQuery("from AccountEntity where client_Id = : clientId",AccountEntity.class)
                     .setParameter("clientId",clientId)
                     .getResultList();
 

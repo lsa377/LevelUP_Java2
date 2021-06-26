@@ -18,26 +18,25 @@ import java.util.List;
 public class ClientRepository{
     private final SessionFactory factory;
 
-    public ClientEntity createClient(long clientid, String firstName, String lastName, LocalDate birthday){
+    public ClientEntity createClient(String firstName, String lastName, LocalDate birthday){
         try(Session session = factory.openSession()) {
            Transaction tx = session.beginTransaction();
            ClientEntity client = new ClientEntity();
-           client.setClientId(clientid);
            client.setFirstName(firstName);
            client.setLastName(lastName);
-           //client.setBirthday(DateUtils.ofLocalDate(birthday));
+           client.setBirthday(birthday);
            session.persist(client);
            tx.commit();
            return client;
         }
     }
 
-    public ClientEntity createClient(long clientid, String firstName, String lastName, String middleName, LocalDate birthday){
-        this.createClient(clientid, firstName, lastName, birthday);
-        return this.editClient(clientid,null,null,middleName,null);
+    public ClientEntity createClient(String firstName, String lastName, String middleName, LocalDate birthday){
+        ClientEntity client = this.createClient(firstName, lastName, birthday);
+        return this.editClient(client.getClientId(),null,null,middleName,null);
     }
 
-    public ClientEntity editClient(long clientid,String firstName,String lastName, String middleName, LocalDate birthday){
+    public ClientEntity editClient(long clientid, String firstName,String lastName, String middleName, LocalDate birthday){
         try(Session session = factory.openSession()) {
             Transaction tx = session.beginTransaction();
             ClientEntity client = session.load(ClientEntity.class,clientid);
@@ -51,7 +50,7 @@ public class ClientRepository{
                 client.setMiddleName(middleName);
             }
             if(birthday != null){
-               // client.setBirthday(DateUtils.ofLocalDate(birthday));
+               client.setBirthday(birthday);
             }
             session.merge(client);
             tx.commit();
@@ -78,10 +77,8 @@ public class ClientRepository{
 
     public Collection<ClientEntity> findClientsWhenBirthdayBetween(LocalDate begin, LocalDate end){
         try(Session session = factory.openSession()) {
-            java.sql.Date beginDate = DateUtils.ofLocalDate(begin);
-            Date endDate = DateUtils.ofLocalDate(end);
-            return session.createQuery("from ClientEntity where birthday between :begin and :end").setParameter("begin",beginDate).
-                    setParameter("end",endDate).getResultList();
+            return session.createQuery("from ClientEntity where birthday between :begin and :end").setParameter("begin",begin).
+                    setParameter("end",end).getResultList();
         }
     }
 }
