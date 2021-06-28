@@ -30,12 +30,26 @@ public class AccountRepository {
         }
     }
 
+    public void depositCash(String accountId,Double amount){
+        try(Session session = factory.openSession()) {
+            Transaction tx = session.beginTransaction();
+            AccountEntity account = session.load(AccountEntity.class,accountId);
+            account.setAmount(account.getAmount()+amount);
+            tx.commit();
+        }
+    }
+
     public Collection<AccountEntity> loadClientAccounts(long clientId){
         try(Session session = factory.openSession()){
             return session.createQuery("from AccountEntity where client_Id = : clientId",AccountEntity.class)
                     .setParameter("clientId",clientId)
                     .getResultList();
+        }
+    }
 
+    public Collection<AccountEntity> loadClientAccounts(){
+        try(Session session = factory.openSession()){
+            return session.createQuery("from AccountEntity",AccountEntity.class).getResultList();
         }
     }
 }

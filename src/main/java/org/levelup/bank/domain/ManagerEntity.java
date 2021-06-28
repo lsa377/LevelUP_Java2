@@ -23,7 +23,7 @@ public class ManagerEntity {
     @Column(name = "last_name")
     private String lastName;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "filial_manager",
             joinColumns = @JoinColumn(name = "manager_id"),
