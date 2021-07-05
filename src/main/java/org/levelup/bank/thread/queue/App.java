@@ -5,7 +5,7 @@ import lombok.SneakyThrows;
 public class App {
     @SneakyThrows
     public static void main(String[] args) {
-        Queue queue = new SyncronizedQueue();
+        Queue queue = new ReentrantLockQueue();
 
         FindDuplicatesProducer producer1 = new FindDuplicatesProducer(queue);
         FindDuplicatesProducer producer2 = new FindDuplicatesProducer(queue);
